@@ -1,0 +1,173 @@
+<!--
+  LAUNCHER WITH STATUS — Enhanced with live status badge and session info
+  =========================================================================
+  This launcher includes:
+  - Live status badge image loaded from your home server
+  - Last session information (static placeholder — update manually or via script)
+  - Connection indicator with fallback
+
+  Replace YOUR-TUNNEL-URL with your actual Cloudflare Tunnel URL.
+  Requires: Test 1 PASS (styles), Test 2 PASS (links), Test 3 PASS (images)
+-->
+
+<!-- Outer wrapper -->
+<div style="
+  background: linear-gradient(160deg, #0d1117 0%, #161b22 100%);
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 18px;
+  max-width: 460px;
+  margin: 10px auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  color: #c9d1d9;
+">
+
+  <!-- Title row with status badge -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:24px;">🤖</span>
+      <div>
+        <div style="font-weight:700;font-size:15px;color:#f0f6fc;">Asistente IA Académico</div>
+        <div style="font-size:10px;color:#8b949e;">Proyecto Final 2026 · v1.0</div>
+      </div>
+    </div>
+
+    <!-- Live status badge from home server -->
+    <div style="display:flex;align-items:center;gap:5px;">
+      <img
+        src="YOUR-TUNNEL-URL/api/status/badge"
+        alt="status"
+        width="12"
+        height="12"
+        style="border-radius:50%;"
+        onerror="this.style.backgroundColor='#f85149';this.style.width='12px';this.style.height='12px';"
+      >
+      <span style="font-size:11px;color:#3fb950;font-weight:600;">Online</span>
+    </div>
+  </div>
+
+  <!-- Last session info box -->
+  <div style="
+    background:rgba(48,54,61,0.5);
+    border:1px solid #21262d;
+    border-radius:6px;
+    padding:10px 12px;
+    margin-bottom:14px;
+    font-size:11px;
+  ">
+    <div style="color:#8b949e;margin-bottom:4px;">📌 ÚLTIMA SESIÓN</div>
+    <div style="color:#c9d1d9;">
+      <img
+        src="YOUR-TUNNEL-URL/api/status/last-session-info"
+        alt="Cargando info de última sesión..."
+        style="max-width:100%;display:block;"
+        onerror="this.style.display='none';this.nextSibling.style.display='block';"
+      >
+      <div style="display:none;color:#8b949e;font-style:italic;">
+        Información no disponible — verifica que el servidor esté corriendo
+      </div>
+    </div>
+  </div>
+
+  <!-- Main button -->
+  <a
+    href="YOUR-TUNNEL-URL/panel"
+    target="_blank"
+    rel="noopener noreferrer"
+    style="
+      display:block;
+      background: linear-gradient(135deg, #238636 0%, #2ea043 100%);
+      color:#ffffff;
+      text-decoration:none;
+      padding:12px 16px;
+      border-radius:8px;
+      text-align:center;
+      font-size:14px;
+      font-weight:700;
+      margin-bottom:10px;
+      box-shadow:0 1px 4px rgba(35,134,54,0.4);
+    "
+  >
+    📝 Abrir Asistente de Tareas
+  </a>
+
+  <!-- Secondary buttons row -->
+  <div style="display:flex;gap:6px;margin-bottom:10px;">
+    <a
+      href="YOUR-TUNNEL-URL/panel#diagrams"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        flex:1;
+        background:#21262d;
+        color:#79c0ff;
+        text-decoration:none;
+        padding:7px 6px;
+        border-radius:6px;
+        text-align:center;
+        font-size:10px;
+        font-weight:600;
+        border:1px solid #30363d;
+      "
+    >🗺️ Diagramas</a>
+
+    <a
+      href="YOUR-TUNNEL-URL/panel#export"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        flex:1;
+        background:#21262d;
+        color:#79c0ff;
+        text-decoration:none;
+        padding:7px 6px;
+        border-radius:6px;
+        text-align:center;
+        font-size:10px;
+        font-weight:600;
+        border:1px solid #30363d;
+      "
+    >📊 Sheets</a>
+
+    <a
+      href="YOUR-TUNNEL-URL/panel#training"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        flex:1;
+        background:#21262d;
+        color:#79c0ff;
+        text-decoration:none;
+        padding:7px 6px;
+        border-radius:6px;
+        text-align:center;
+        font-size:10px;
+        font-weight:600;
+        border:1px solid #30363d;
+      "
+    >🧠 Entrenar</a>
+  </div>
+
+  <!-- Connection indicator -->
+  <div style="
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    padding:6px;
+    background:rgba(48,54,61,0.3);
+    border-radius:4px;
+    font-size:9px;
+    color:#8b949e;
+  ">
+    <img
+      src="YOUR-TUNNEL-URL/api/status/badge"
+      alt=""
+      width="8"
+      height="8"
+      style="border-radius:50%;"
+    >
+    <span>Ollama (Mistral 7B) · PostgreSQL · Cloudflare Tunnel · $0/mes</span>
+  </div>
+
+</div>

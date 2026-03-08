@@ -1,0 +1,170 @@
+<!--
+  LAUNCHER STYLED — Professional Dark Card
+  =========================================
+  Paste this into your Moodle TinyMCE text block (Source Code view).
+  Replace YOUR-TUNNEL-URL with your actual Cloudflare Tunnel URL.
+  Example: https://ai.yourdomain.com
+
+  REQUIREMENTS (from diagnostic tests):
+  - Test 1 PASS (inline styles)
+  - Test 2 PASS (target="_blank")
+  - Test 3 PASS (external images) — for status badge
+
+  If any of the above fail, use launcher-basic.html instead.
+-->
+
+<!-- Main launcher container -->
+<div style="
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: 12px;
+  padding: 20px;
+  max-width: 480px;
+  margin: 10px auto;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+">
+
+  <!-- Header row -->
+  <div style="display:flex;align-items:center;margin-bottom:12px;">
+    <span style="font-size:28px;margin-right:10px;">🤖</span>
+    <div>
+      <div style="color:#ffffff;font-size:16px;font-weight:700;line-height:1.2;">
+        Asistente IA Académico
+      </div>
+      <div style="color:#8892b0;font-size:11px;margin-top:2px;">
+        Proyecto Final 2026 — v1.0
+      </div>
+    </div>
+  </div>
+
+  <!-- Status indicator row -->
+  <div style="
+    display:flex;
+    align-items:center;
+    background:rgba(255,255,255,0.05);
+    border-radius:6px;
+    padding:6px 10px;
+    margin-bottom:14px;
+    gap:8px;
+  ">
+    <img
+      src="YOUR-TUNNEL-URL/api/status/badge"
+      alt="●"
+      width="12"
+      height="12"
+      style="border-radius:50%;"
+      onerror="this.style.display='none';this.nextSibling.style.color='#ff4444';"
+    >
+    <span style="color:#64ffda;font-size:11px;font-weight:600;" id="status-text">
+      ● Servidor en línea
+    </span>
+    <span style="color:#8892b0;font-size:10px;margin-left:auto;">
+      Ollama · Mistral 7B
+    </span>
+  </div>
+
+  <!-- Main launch button -->
+  <a
+    href="YOUR-TUNNEL-URL/panel"
+    target="_blank"
+    rel="noopener noreferrer"
+    style="
+      display:block;
+      background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+      color:#ffffff;
+      text-decoration:none;
+      padding:14px 20px;
+      border-radius:8px;
+      text-align:center;
+      font-size:15px;
+      font-weight:700;
+      margin-bottom:12px;
+      letter-spacing:0.3px;
+      box-shadow: 0 2px 8px rgba(0,184,148,0.4);
+    "
+  >
+    📝 Abrir Asistente de Tareas
+  </a>
+
+  <!-- Quick-link buttons row -->
+  <div style="display:flex;gap:8px;margin-bottom:14px;">
+
+    <!-- Google Sheets button -->
+    <a
+      href="https://docs.google.com/spreadsheets"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        flex:1;
+        background:rgba(255,255,255,0.08);
+        color:#a8dadc;
+        text-decoration:none;
+        padding:8px;
+        border-radius:6px;
+        text-align:center;
+        font-size:11px;
+        font-weight:600;
+        border:1px solid rgba(255,255,255,0.1);
+      "
+    >
+      📊 Google Sheets
+    </a>
+
+    <!-- Diagrams button -->
+    <a
+      href="YOUR-TUNNEL-URL/panel#diagrams"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        flex:1;
+        background:rgba(255,255,255,0.08);
+        color:#a8dadc;
+        text-decoration:none;
+        padding:8px;
+        border-radius:6px;
+        text-align:center;
+        font-size:11px;
+        font-weight:600;
+        border:1px solid rgba(255,255,255,0.1);
+      "
+    >
+      🗺️ Diagramas
+    </a>
+
+    <!-- Training button -->
+    <a
+      href="YOUR-TUNNEL-URL/panel#training"
+      target="_blank"
+      rel="noopener noreferrer"
+      style="
+        flex:1;
+        background:rgba(255,255,255,0.08);
+        color:#a8dadc;
+        text-decoration:none;
+        padding:8px;
+        border-radius:6px;
+        text-align:center;
+        font-size:11px;
+        font-weight:600;
+        border:1px solid rgba(255,255,255,0.1);
+      "
+    >
+      🧠 Entrenar IA
+    </a>
+
+  </div>
+
+  <!-- Footer -->
+  <div style="
+    color:#4a5568;
+    font-size:9px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,0.05);
+    padding-top:8px;
+    letter-spacing:0.5px;
+  ">
+    Backend: Ollama (Mistral) · DB: PostgreSQL · Costo: $0/mes
+  </div>
+
+</div>

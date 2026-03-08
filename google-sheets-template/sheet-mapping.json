@@ -1,0 +1,18 @@
+{
+  "spreadsheetId": "YOUR_SHEET_ID",
+  "tabs": {
+    "portada": {
+      "studentName": "Portada!B2",
+      "matricula": "Portada!B3",
+      "date": "Portada!B4",
+      "subject": "Portada!B5",
+      "teacherName": "Portada!B6"
+    },
+    "content": {
+      "introduction": "Introduccion!A1",
+      "development": "Desarrollo!A1",
+      "conclusion": "Conclusion!A1",
+      "references": "Referencias!A1"
+    }
+  }
+}
