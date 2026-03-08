@@ -1,0 +1,27 @@
+{
+  "name": "moodle-ai-assistant-server",
+  "version": "1.0.0",
+  "description": "Home server for Moodle AI homework assistant — Ollama + PostgreSQL + Express",
+  "type": "module",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:setup": "psql -U ai_user -d moodle_ai -f db/schema.sql",
+    "db:seed": "psql -U ai_user -d moodle_ai -f db/seed.sql",
+    "tunnel": "cloudflared tunnel run moodle-bridge",
+    "export:training": "node ../training/export-training-data.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.5.0",
+    "googleapis": "^144.0.0",
+    "node-fetch": "^3.3.2",
+    "pg": "^8.13.0"
+  }
+}

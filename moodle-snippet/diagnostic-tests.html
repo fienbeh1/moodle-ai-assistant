@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--
+  MOODLE DIAGNOSTIC TESTS
+  ========================
+  Copy all 15 tests into a Moodle text/HTML block to determine
+  which HTML elements your school's Moodle installation allows.
+
+  HOW TO USE:
+  1. Go to your Moodle Dashboard
+  2. Edit a text block (or add a new HTML block)
+  3. Switch to Source Code view in TinyMCE (click the <> button)
+  4. Paste this entire file
+  5. Save and exit edit mode
+  6. Check which tests passed (styled) vs failed (plain/missing)
+  7. Record results in TEST_PLAN.md
+-->
+
+<!-- ===== TEST 1: Inline styles on div ===== -->
+<!-- PASS: Blue rounded box with white text -->
+<!-- FAIL: Plain text with no styling -->
+<div style="background-color:#1a73e8;color:#ffffff;padding:15px;border-radius:8px;font-weight:bold;text-align:center;margin:8px 0;">
+  ✅ TEST 1 PASS: Inline styles on div work
+</div>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 2: Link with target="_blank" and rel ===== -->
+<!-- PASS: Link opens in a new browser tab -->
+<!-- FAIL: Link exists but opens in same tab (target attribute was stripped) -->
+<p>
+  <a href="https://example.com" target="_blank" rel="noopener noreferrer"
+     style="color:#1a73e8;font-weight:bold;">
+    ✅ TEST 2: Link with target="_blank" — click to test (new tab = PASS)
+  </a>
+</p>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 3: External image with inline style ===== -->
+<!-- PASS: Image loads with rounded corners -->
+<!-- FAIL: Broken image icon or image with sharp corners (style stripped) -->
+<p>TEST 3: External image with inline style (rounded corners = style PASS)</p>
+<img src="https://picsum.photos/300/100" alt="TEST 3 — External image test"
+     style="border-radius:8px;display:block;margin:5px 0;border:2px solid #1a73e8;">
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 4: Clickable image (link + image combo) ===== -->
+<!-- This is the MOST IMPORTANT test — it's how our launch button works -->
+<!-- PASS: Clicking the image opens a new tab -->
+<!-- FAIL: Image not clickable, or opens in same tab -->
+<p>TEST 4: Clickable image link — click the image below (new tab = PASS)</p>
+<a href="https://example.com" target="_blank" rel="noopener noreferrer">
+  <img src="https://picsum.photos/320/60" alt="TEST 4 — Click me to test"
+       style="border:3px solid #34a853;border-radius:6px;display:block;cursor:pointer;">
+</a>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 5: Style tag ===== -->
+<!-- PASS: "TEST 5" text appears GREEN (style tag was allowed — rare) -->
+<!-- FAIL: "TEST 5" text appears in default color (style tag stripped — common) -->
+<style>.moodle-test-5-class{color:#00aa00;font-weight:bold;}</style>
+<p class="moodle-test-5-class">TEST 5: Style tag test — if this text is GREEN, style tag is ALLOWED (rare)</p>
+<p style="color:#888;font-size:0.85em;">(If text above is default color, style tag was stripped — expected)</p>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 6: Script tag — EXPECTED TO FAIL ===== -->
+<!-- PASS: Alert dialog appears — script tag was allowed (VERY unusual / security concern) -->
+<!-- FAIL: No alert appears — script tag stripped (EXPECTED and correct) -->
+<script>
+  try { alert('TEST 6: Script tag worked! This is unusual.'); } catch(e) {}
+</script>
+<p style="color:#cc0000;font-weight:bold;">
+  TEST 6: Script tag — if an alert dialog appeared, script is ALLOWED (unusual!)<br>
+  <span style="color:#666;font-weight:normal;">If no alert appeared, script was stripped (expected normal behavior)</span>
+</p>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 7: iframe — EXPECTED TO FAIL ===== -->
+<!-- PASS: Example.com appears embedded — iframe allowed (very unusual) -->
+<!-- FAIL: No embedded content — iframe stripped (EXPECTED and normal) -->
+<p style="color:#cc0000;font-weight:bold;">
+  TEST 7: iframe — content below should NOT appear (iframe is expected to be stripped)
+</p>
+<iframe src="https://example.com" width="300" height="80" title="TEST 7 iframe test"
+        style="border:1px solid #ccc;">
+  TEST 7 fallback: iframe was stripped (this is expected behavior)
+</iframe>
+<p style="color:#888;font-size:0.85em;">(If example.com content appears above, iframes are ALLOWED — unexpected)</p>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 8: HTML form ===== -->
+<!-- PASS: Input field and submit button visible -->
+<!-- FAIL: No form elements visible (form stripped) -->
+<p>TEST 8: HTML form elements</p>
+<form action="https://example.com" method="get" target="_blank"
+      style="display:flex;gap:8px;align-items:center;margin:5px 0;">
+  <input type="text" placeholder="TEST 8: Form input field"
+         style="padding:6px;border:1px solid #ccc;border-radius:4px;flex:1;">
+  <button type="submit"
+          style="padding:6px 12px;background:#1a73e8;color:white;border:none;border-radius:4px;cursor:pointer;">
+    Submit
+  </button>
+</form>
+<p style="color:#888;font-size:0.85em;">(If input + button appear, forms are PASS)</p>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 9: Bootstrap CSS classes (4 variants) ===== -->
+<!-- Moodle uses Bootstrap — these classes may already be available -->
+<!-- PASS: Colored alert boxes appear -->
+<!-- FAIL: Plain unstyled divs -->
+<p>TEST 9: Bootstrap CSS classes (colored boxes = PASS, plain divs = FAIL)</p>
+<div class="alert alert-info" style="margin:4px 0;">TEST 9a: alert-info (blue)</div>
+<div class="alert alert-success" style="margin:4px 0;">TEST 9b: alert-success (green)</div>
+<div class="alert alert-warning" style="margin:4px 0;">TEST 9c: alert-warning (yellow)</div>
+<div class="alert alert-danger" style="margin:4px 0;">TEST 9d: alert-danger (red)</div>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 10: Table with inline styles ===== -->
+<!-- PASS: Table visible with blue header row -->
+<!-- FAIL: No table or unstyled table -->
+<p>TEST 10: Styled table</p>
+<table style="border-collapse:collapse;width:100%;margin:5px 0;">
+  <thead>
+    <tr style="background-color:#1a73e8;color:white;">
+      <th style="padding:8px;border:1px solid #bbb;text-align:left;">TEST 10 Column A</th>
+      <th style="padding:8px;border:1px solid #bbb;text-align:left;">TEST 10 Column B</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="background-color:#f8f9fa;">
+      <td style="padding:8px;border:1px solid #bbb;">Row 1 Cell A</td>
+      <td style="padding:8px;border:1px solid #bbb;">Row 1 Cell B</td>
+    </tr>
+    <tr>
+      <td style="padding:8px;border:1px solid #bbb;">Row 2 Cell A</td>
+      <td style="padding:8px;border:1px solid #bbb;">Row 2 Cell B</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 11: Data attributes ===== -->
+<!-- PASS: Div renders (data attributes may be silently stripped but div shows) -->
+<!-- FAIL: No div at all (very unusual) -->
+<div data-role="ai-launcher" data-url="https://example.com" data-version="1.0"
+     style="padding:10px;background:#e8f5e9;border-radius:4px;border-left:4px solid #34a853;margin:5px 0;">
+  TEST 11: Div with data-* attributes — if this green box shows, PASS (data attrs may be silently stripped)
+</div>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 12: Inline SVG ===== -->
+<!-- PASS: Green circle with number appears -->
+<!-- FAIL: No circle (SVG stripped) -->
+<p>TEST 12: Inline SVG (circle = PASS, no circle = SVG stripped)</p>
+<svg width="40" height="40" xmlns="http://www.w3.org/2000/svg"
+     style="display:inline-block;vertical-align:middle;margin-right:8px;">
+  <circle cx="20" cy="20" r="16" fill="#00cc44"/>
+  <text x="20" y="25" text-anchor="middle" fill="white" font-size="13" font-family="sans-serif">✓</text>
+</svg>
+<span>If you see a green circle to the left, SVG is PASS</span>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 13: Object tag — EXPECTED TO FAIL ===== -->
+<!-- PASS: Content embedded (very unusual) -->
+<!-- FAIL: Only fallback text or nothing (expected) -->
+<p>TEST 13: Object tag (only fallback text should appear)</p>
+<object data="https://example.com" type="text/html" width="300" height="60"
+        style="border:1px dashed #ccc;display:block;">
+  <p style="padding:5px;color:#888;">TEST 13 fallback: object tag was stripped (expected)</p>
+</object>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 14: External CSS link tag ===== -->
+<!-- PASS: Bootstrap button styles applied to div below (link tag allowed — rare) -->
+<!-- FAIL: Unstyled div (link tag stripped — normal) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<p>TEST 14: External CSS link tag (Bootstrap button below)</p>
+<div class="btn btn-primary" style="display:inline-block;margin:5px 0;">
+  TEST 14: If this looks like a Bootstrap button, link tag is ALLOWED
+</div>
+<p style="color:#888;font-size:0.85em;">(If it looks like a styled button, link tag PASSED — rare)</p>
+
+<hr style="margin:10px 0;">
+
+<!-- ===== TEST 15: Meta refresh — SECURITY TEST ===== -->
+<!-- PASS: Page redirects to example.com after 999 seconds (bad! security issue) -->
+<!-- FAIL: Nothing happens (meta tag stripped — expected correct behavior) -->
+<meta http-equiv="refresh" content="999;url=https://example.com">
+<p style="color:#cc0000;font-weight:bold;">
+  TEST 15: Meta refresh (page should NOT redirect — if page redirects after ~16 min, meta is ALLOWED — security issue!)
+</p>
+<p style="color:#888;font-size:0.85em;">(Normal: nothing happens = meta stripped = SAFE)</p>
+
+<hr>
+<p style="color:#666;font-size:0.85em;text-align:center;">
+  — End of Moodle Diagnostic Tests — Record results in TEST_PLAN.md —
+</p>

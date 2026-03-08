@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🤖 Asistente IA Académico</title>
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Mermaid.js for diagram rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+
+  <!-- Chart.js for statistics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+
+  <!-- TinyMCE Cloud — replace TINYMCE_API_KEY with your key from tiny.cloud -->
+  <script src="https://cdn.tiny.cloud/1/TINYMCE_API_KEY/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+</head>
+<body>
+  <div class="app-layout">
+
+    <!-- ── LEFT SIDEBAR ─────────────────────────────────────────────── -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <span class="logo">🤖</span>
+        <div>
+          <div class="sidebar-title">Asistente IA</div>
+          <div class="sidebar-subtitle">Académico 2026</div>
+        </div>
+      </div>
+
+      <!-- Model selector -->
+      <div class="sidebar-section">
+        <div class="section-label">MODELO DE IA</div>
+        <div class="model-options">
+          <label class="model-option">
+            <input type="radio" name="model" value="mistral" checked>
+            <span class="model-name">🧠 Mistral (Local)</span>
+            <span class="model-badge free">gratis</span>
+          </label>
+          <label class="model-option">
+            <input type="radio" name="model" value="gemini-2.5-flash">
+            <span class="model-name">✨ Gemini Flash</span>
+            <span class="model-badge cloud">nube</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Connection status -->
+      <div class="sidebar-section">
+        <div class="section-label">ESTADO DEL SERVIDOR</div>
+        <div id="connection-status" class="status-indicator status-checking">
+          <span class="status-dot"></span>
+          <span class="status-text">Verificando...</span>
+        </div>
+      </div>
+
+      <!-- Session history -->
+      <div class="sidebar-section sidebar-sessions">
+        <div class="section-label">
+          SESIONES
+          <button id="new-session-btn" class="btn-icon" title="Nueva sesión">+</button>
+        </div>
+        <div id="session-list" class="session-list">
+          <div class="session-empty">Sin sesiones aún</div>
+        </div>
+      </div>
+
+      <!-- Training stats summary -->
+      <div class="sidebar-section">
+        <div class="section-label">ENTRENAMIENTO</div>
+        <div id="training-summary" class="training-summary">
+          <div class="stat-row">
+            <span>👍 Positivas</span>
+            <span id="stat-positive">—</span>
+          </div>
+          <div class="stat-row">
+            <span>👎 Negativas</span>
+            <span id="stat-negative">—</span>
+          </div>
+          <div class="stat-row">
+            <span>✏️ Correcciones</span>
+            <span id="stat-corrections">—</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ── CENTER: CHAT AREA ─────────────────────────────────────────── -->
+    <main class="chat-area">
+      <div class="chat-header">
+        <h1 class="chat-title">📚 Asistente de Tareas Académicas</h1>
+        <div class="chat-subtitle">Genera documentos con formato APA · Diagramas Mermaid · Exporta a Google Sheets</div>
+      </div>
+
+      <!-- Messages container -->
+      <div id="messages-container" class="messages-container">
+        <div class="welcome-message">
+          <div class="welcome-icon">🎓</div>
+          <h2>¡Bienvenido al Asistente IA Académico!</h2>
+          <p>Escribe tu pregunta o tema de tarea abajo. Las respuestas incluyen automáticamente:</p>
+          <ul>
+            <li>📖 Introducción contextualizada</li>
+            <li>📝 Desarrollo con subtítulos</li>
+            <li>✅ Conclusión sintetizada</li>
+            <li>📚 Referencias APA reales (mín. 3)</li>
+            <li>🗺️ Diagramas Mermaid (si los pides)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Typing indicator -->
+      <div id="typing-indicator" class="typing-indicator hidden">
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <span class="typing-text">El asistente está pensando...</span>
+      </div>
+
+      <!-- Input area -->
+      <div class="input-area">
+        <div id="editor-container">
+          <textarea id="chat-editor" placeholder="Escribe tu pregunta o tema de tarea aquí..."></textarea>
+        </div>
+        <div class="input-actions">
+          <div class="input-info">
+            <span id="session-id-display" class="session-tag">Nueva sesión</span>
+          </div>
+          <button id="send-btn" class="btn-send">
+            <span class="btn-text">📤 Enviar</span>
+            <span class="btn-loading hidden">⏳ Procesando...</span>
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- ── RIGHT PANEL: OUTPUT TABS ──────────────────────────────────── -->
+    <aside class="output-panel">
+      <!-- Tabs -->
+      <div class="panel-tabs">
+        <button class="tab-btn active" data-tab="diagrams">🗺️ Diagrama</button>
+        <button class="tab-btn" data-tab="export">📊 Exportar</button>
+        <button class="tab-btn" data-tab="training">🧠 Entrenar</button>
+      </div>
+
+      <!-- Diagram tab -->
+      <div id="tab-diagrams" class="tab-content active">
+        <div class="tab-header">Diagrama Mermaid</div>
+        <div id="diagram-container" class="diagram-container">
+          <div class="diagram-placeholder">
+            <span>🗺️</span>
+            <p>Los diagramas aparecerán aquí cuando el AI genere código Mermaid.</p>
+            <p class="hint">Prueba: "Hazme un diagrama de flujo de la mitosis"</p>
+          </div>
+        </div>
+        <div class="diagram-actions hidden" id="diagram-actions">
+          <button id="export-png-btn" class="btn-secondary">⬇️ Descargar PNG</button>
+          <button id="copy-mermaid-btn" class="btn-secondary">📋 Copiar código</button>
+        </div>
+        <div id="mermaid-code-display" class="mermaid-code hidden">
+          <pre id="mermaid-source"></pre>
+        </div>
+      </div>
+
+      <!-- Export tab -->
+      <div id="tab-export" class="tab-content">
+        <div class="tab-header">Exportar a Google Sheets</div>
+        <div class="export-form">
+          <div class="form-group">
+            <label for="student-name">Nombre del alumno</label>
+            <input type="text" id="student-name" placeholder="Tu nombre completo">
+          </div>
+          <div class="form-group">
+            <label for="matricula">Matrícula</label>
+            <input type="text" id="matricula" placeholder="Número de matrícula">
+          </div>
+          <div class="form-group">
+            <label for="subject">Materia</label>
+            <input type="text" id="subject" placeholder="Biología, Historia, etc.">
+          </div>
+          <div class="form-group">
+            <label for="teacher-name">Nombre del profesor</label>
+            <input type="text" id="teacher-name" placeholder="Nombre del docente">
+          </div>
+          <button id="export-btn" class="btn-primary" disabled>
+            📊 Exportar a Google Sheets
+          </button>
+          <div id="export-result" class="export-result hidden">
+            <div class="export-success">
+              ✅ ¡Exportado exitosamente!
+              <a id="sheet-link" href="#" target="_blank" rel="noopener noreferrer">
+                📋 Ver en Google Sheets →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Training tab -->
+      <div id="tab-training" class="tab-content">
+        <div class="tab-header">Entrenamiento con Intervención Humana</div>
+        <div class="training-description">
+          <p>Califica y corrige las respuestas del AI para mejorar el modelo con el tiempo.</p>
+        </div>
+
+        <!-- Stats chart -->
+        <div class="chart-container">
+          <canvas id="rating-chart" width="200" height="200"></canvas>
+        </div>
+
+        <div class="training-stats-detail" id="training-stats-detail">
+          <div class="loading-text">Cargando estadísticas...</div>
+        </div>
+
+        <div class="training-actions">
+          <button id="export-jsonl-btn" class="btn-primary">
+            ⬇️ Exportar datos de entrenamiento (JSONL)
+          </button>
+          <p class="hint">Exporta los pares de entrenamiento para fine-tuning con LoRA</p>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- JavaScript modules -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

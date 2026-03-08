@@ -1,0 +1,21 @@
+Genera un diagrama Mermaid para el siguiente tema. El diagrama debe:
+1. Ser claro y fácil de entender para un estudiante de preparatoria
+2. Usar el tipo de diagrama más apropiado:
+   - flowchart TD para procesos y flujos
+   - mindmap para mapas mentales y conceptuales
+   - sequenceDiagram para procesos paso a paso
+   - classDiagram para relaciones y categorías
+3. Incluir emojis relevantes en los nodos donde sea apropiado
+4. Usar colores con la sintaxis style para destacar elementos importantes
+5. El código debe estar DENTRO de bloques ```mermaid
+
+Ejemplo de formato esperado:
+```mermaid
+flowchart TD
+    A[Inicio] --> B{Decisión}
+    B -->|Sí| C[Acción 1]
+    B -->|No| D[Acción 2]
+    style A fill:#4CAF50,color:#fff
+```
+
+Tema para el diagrama: {TOPIC}

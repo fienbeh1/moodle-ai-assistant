@@ -1,0 +1,84 @@
+# Dependencies
+node_modules/
+
+# Environment variables (NEVER commit secrets)
+.env
+home-server/.env
+
+# Google Service Account keys (NEVER commit)
+*.json
+!package.json
+!package-lock.json
+!home-server/package.json
+!home-server/package-lock.json
+!google-sheets-template/sheet-mapping.json
+!training/sample-training-data.jsonl
+
+# Real training data (may contain personal info)
+training/training-data.jsonl
+training-data.jsonl
+
+# Fine-tuned model files (too large for git)
+finetuned-model/
+*.bin
+*.safetensors
+*.gguf
+
+# Vendor / downloaded dependencies
+vendor/
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V3
+.Trashes
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log.*
+
+# Editor directories
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+
+# Build outputs
+dist/
+build/
+.cache/
+
+# Cloudflare credentials (personal, machine-specific)
+.cloudflared/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+venv/
+env/
+.env/
+.venv/
+pip-selfcheck.json
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
